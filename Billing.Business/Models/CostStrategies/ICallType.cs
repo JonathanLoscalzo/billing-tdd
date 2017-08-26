@@ -5,9 +5,11 @@ namespace Billing.Business.Models.CostStrategies
 {
     public abstract class ICallType
     {
-        public abstract double HowMuchCost(Call call);
+        public double HowMuchCost(Call call) => this.HowMuch(this.GetTax(call), call.Duration);
 
         protected double HowMuch(double tax, int duration) => tax * duration;
+
+        public abstract double GetTax(Call call);
 
         public static ICallType Factory(CallEnum callType)
         {

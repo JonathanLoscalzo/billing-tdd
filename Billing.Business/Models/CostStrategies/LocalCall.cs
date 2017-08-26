@@ -4,38 +4,30 @@ namespace Billing.Business.Models.CostStrategies
 {
     public class LocalCall : ICallType
     {
-        /**
-        Las llamadas locales tienen distintos valores según la franja horaria 
-        en la que se realizan y el día. 
-        Para los días hábiles, de 8 a 20 hrs. el costo es de 0,20 centavos el minuto, 
-        mientras en el resto de las horas es de 0,10 centavos el minuto. 
-        Los sábados y domingos cuesta 0,10 centavos el minuto
-         */
-        public override double HowMuchCost(Call call)
+        public override double GetTax(Call call)
         {
-            var hour = call.StartTime.Hour;
-            var tax = 0.10m;
-
-            var day = call.StartTime.DayOfWeek;
-            switch (day)
+            switch (call.StartTime.DayOfWeek)
             {
                 case DayOfWeek.Friday:
                 case DayOfWeek.Monday:
                 case DayOfWeek.Thursday:
                 case DayOfWeek.Wednesday:
                 case DayOfWeek.Tuesday:
+                    var hour = call.StartTime.Hour;
                     if (hour >= 8 && hour <= 20)
                     {
-                        tax = 0.20m;
+                        return 0.20;
                     }
-                    break;
+                    else
+                    {
+                        return 0.10;
+                    }
                 case DayOfWeek.Saturday:
                 case DayOfWeek.Sunday:
-                    tax = 0.10m;
-                    break;
+                    return 0.10;
             }
 
-            return HowMuch((double)tax, call.Duration);
+            return 0;
         }
     }
 }

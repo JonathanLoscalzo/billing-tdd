@@ -1,13 +1,22 @@
-using System;
+using Billing.Business.Services;
+using Billing.Business.Services.Contracts;
 
 namespace Billing.Business.Models.CostStrategies
 {
     public class InternationalCall : ICallType
     {
-        ///  Las llamadas Internacionales tienen un costo distinto según el país al que se llame
-        public override double HowMuchCost(Call call)
+        private readonly ICostExternalService costExternalService;
+
+        public InternationalCall()
         {
-            throw new NotImplementedException();
+            //TODO: IOC/ID
+            this.costExternalService = new CostExternalService();
+            
+        }
+
+        public override double GetTax(Call call)
+        {
+            return this.costExternalService.GetCostFromInternationalCall(call.Receiver.Address);
         }
     }
 }

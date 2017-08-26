@@ -1,13 +1,19 @@
 using System;
+using Billing.Business.Services;
+using Billing.Business.Services.Contracts;
 
 namespace Billing.Business.Models.CostStrategies
 {
     public class NationalCall : ICallType
     {
-        ///  Las llamadas Nacionales tienen un costo distinto según la localidad a la que se llame
-        public override double HowMuchCost(Call call)
+        private readonly ICostExternalService costExternalService;
+        public NationalCall()
         {
-            throw new NotImplementedException();
+            this.costExternalService = new CostExternalService();
+        }
+        public override double GetTax(Call call)
+        {
+            return this.costExternalService.GetCostFromNationalCall(call.Receiver.Address);
         }
     }
 }
