@@ -8,7 +8,7 @@ namespace Billing.Business.Services
     {
         public Bill CreateBillFrom(Client client, int month) => new Bill()
         {
-            Client = client.FullName,
+            Client = $"{client.Profile} - {client.FullName}",
             MontlyPrice = client.MontlyPrice,
             Month = (Months)month,
             NationalCallCost = client.GetNationalCost(),
