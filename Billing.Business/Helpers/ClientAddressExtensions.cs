@@ -7,8 +7,7 @@ namespace Billing.Business.Helpers
         /// Mismo pais
         public static bool IsNationalCall(this Client from, Client to) =>
             from.Address.Country == to.Address.Country
-            && from.Address.Locality != to.Address.Locality
-            && from.Address.Province != to.Address.Province;
+            && (from.Address.Locality != to.Address.Locality || from.Address.Province != to.Address.Province);
 
         /// Distinto pais
         public static bool IsInternacionalCall(this Client from, Client to) => from.Address.Country != to.Address.Country;
