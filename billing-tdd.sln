@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Business", "Billing.Business\Billing.Business.csproj", "{2B73C191-DDEB-479D-B46C-36F9F94F84C3}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Billing.Business.Test", "Billing.Business.Test\Billing.Business.Test.csproj", "{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{2B73C191-DDEB-479D-B46C-36F9F94F84C3}.Release|x64.Build.0 = Release|x64
 		{2B73C191-DDEB-479D-B46C-36F9F94F84C3}.Release|x86.ActiveCfg = Release|x86
 		{2B73C191-DDEB-479D-B46C-36F9F94F84C3}.Release|x86.Build.0 = Release|x86
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Debug|x64.ActiveCfg = Debug|x64
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Debug|x64.Build.0 = Debug|x64
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Debug|x86.ActiveCfg = Debug|x86
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Debug|x86.Build.0 = Debug|x86
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Release|x64.ActiveCfg = Release|x64
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Release|x64.Build.0 = Release|x64
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Release|x86.ActiveCfg = Release|x86
+		{1BFC39FA-3444-4A93-8429-B5E8D75E43F9}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 EndGlobal
