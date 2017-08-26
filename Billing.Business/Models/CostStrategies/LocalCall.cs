@@ -34,7 +34,7 @@ namespace Billing.Business.Models.CostStrategies
                     tax = 0.10m;
                     break;
             }
-            
+
             return HowMuch((double)tax, call.Duration);
         }
     }
