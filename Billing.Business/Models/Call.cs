@@ -13,7 +13,7 @@ namespace Billing.Business.Models
         /// momento en que comenzó la llamada
         public DateTime StartTime { get; set; }
 
-        /// Duración en segundos
+        /// Duración en minutos
         public int Duration { get; set; }
 
         /// Cuando se setea el tipo de la llamada, se setea la estrategia.
