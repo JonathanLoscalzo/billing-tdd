@@ -12,7 +12,7 @@ namespace Billing.Business.Services
         {
             var call = new Call()
             {
-                CallType = from.GetCallType(to),
+                //CallType = from.GetCallType(to),
                 Transmitter = from,
                 Receiver = to,
                 StartTime = start,

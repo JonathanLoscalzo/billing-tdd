@@ -25,7 +25,8 @@ namespace Billing.Business.Models
             {
                 return this.InternationalCallCost
                 + this.LocalCallCost
-                + this.NationalCallCost;
+                + this.NationalCallCost
+                + this.MontlyPrice;
             }
         }
     }

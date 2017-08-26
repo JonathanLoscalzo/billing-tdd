@@ -2,7 +2,7 @@ using System;
 
 namespace Billing.Business.Models.CostStrategies
 {
-    public class LocalCall : ICallType
+    public class LocalCall : CallType
     {
         public override double GetTax(Call call)
         {

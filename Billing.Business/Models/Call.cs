@@ -19,11 +19,13 @@ namespace Billing.Business.Models
         /// Cuando se setea el tipo de la llamada, se setea la estrategia.
         public Calls CallType
         {
-            get => this.CallType;
-            set => this.CallStrategy = ICallType.Factory(value);
+            get => Transmitter.GetCallType(Receiver);
         }
 
-        public ICallType CallStrategy { get; private set; }
+        public CallType CallStrategy
+        {
+            get => CostStrategies.CallType.Factory(this.CallType);
+        }
 
         public double Cost() => this.CallStrategy.HowMuchCost(this);
     }

@@ -4,7 +4,7 @@ using Billing.Business.Services.Contracts;
 
 namespace Billing.Business.Models.CostStrategies
 {
-    public class NationalCall : ICallType
+    public class NationalCall : CallType
     {
         private readonly ICostExternalService costExternalService;
         public NationalCall()

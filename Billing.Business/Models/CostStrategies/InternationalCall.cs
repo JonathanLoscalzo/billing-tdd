@@ -3,7 +3,7 @@ using Billing.Business.Services.Contracts;
 
 namespace Billing.Business.Models.CostStrategies
 {
-    public class InternationalCall : ICallType
+    public class InternationalCall : CallType
     {
         private readonly ICostExternalService costExternalService;
 
