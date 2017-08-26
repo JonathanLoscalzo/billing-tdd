@@ -13,7 +13,29 @@ namespace Billing.Business.Models.CostStrategies
          */
         public override double HowMuchCost(Call call)
         {
-            return 0;
+            var hour = call.StartTime.Hour;
+            var tax = 0.10m;
+
+            var day = call.StartTime.DayOfWeek;
+            switch (day)
+            {
+                case DayOfWeek.Friday:
+                case DayOfWeek.Monday:
+                case DayOfWeek.Thursday:
+                case DayOfWeek.Wednesday:
+                case DayOfWeek.Tuesday:
+                    if (hour >= 8 && hour <= 20)
+                    {
+                        tax = 0.20m;
+                    }
+                    break;
+                case DayOfWeek.Saturday:
+                case DayOfWeek.Sunday:
+                    tax = 0.10m;
+                    break;
+            }
+            
+            return HowMuch((double)tax, call.Duration);
         }
     }
 }

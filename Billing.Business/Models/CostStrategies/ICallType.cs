@@ -7,6 +7,8 @@ namespace Billing.Business.Models.CostStrategies
     {
         public abstract double HowMuchCost(Call call);
 
+        protected double HowMuch(double tax, int duration) => tax * duration;
+
         public static ICallType Factory(CallEnum callType)
         {
             switch (callType)
