@@ -1,22 +1,36 @@
 using Xunit;
-using System;
 using FluentAssertions;
 
-using Billing.Entities.Enums;
 using Billing.Data.CostStrategies;
+using Moq;
+using Billing.Entities.Models;
+using Billing.Data;
 
 namespace Billing.Test.Data.CostStrategies
 {
     [Trait("Category", "CostStrategies")]
     public class DestinationCallTest
     {
-        [Theory]
-        [InlineData(Calls.International, typeof(InternationalCall))]
-        [InlineData(Calls.Local, typeof(LocalCall))]
-        [InlineData(Calls.National, typeof(NationalCall))]
-        public void FactoryReturnStrategy(Calls calls, Type type)
+        private Mock<DestinationCall> strategy;
+
+        public DestinationCallTest()
         {
-            DestinationCall.GetInstance(calls).GetType().Should().Be(type);
+            this.strategy = new Mock<DestinationCall>();
+            this.strategy
+                .Setup(s => s.GetTax(It.IsAny<Call>()))
+                .Returns(2)
+                .Verifiable("No se invocó");
+        }
+
+        [Fact]
+        public void VerifyHowMuchCostCorrectAlgorithm()
+        {
+            var call = ModelFakers.CallFaker.Generate(1)[0];
+            call.Duration = 12;
+
+            var result = this.strategy.Object.HowMuchCost(call);
+
+            result.Should().Be(12 * 2);
         }
     }
 }

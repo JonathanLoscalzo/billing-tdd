@@ -7,10 +7,10 @@ namespace Billing.Test.Business
     [Trait("Category", "Business")]
     public class BillingServiceTest
     {
-        public BillingServiceTest()
+        [Fact]
+        public void CreateBill()
         {
-            
-        }
 
+        }
     }
 }

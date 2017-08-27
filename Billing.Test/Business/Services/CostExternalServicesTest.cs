@@ -15,8 +15,9 @@ namespace Billing.Test.Business
 
         public CostExternalServicesTest()
         {
-            this.costExternalService = new CostExternalService();            
             this.costRepository = new CostRepository();
+            
+            this.costExternalService = new CostExternalService(this.costRepository);            
         }
 
         [Fact]
