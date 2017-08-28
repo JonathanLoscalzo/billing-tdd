@@ -1,6 +1,6 @@
 namespace Billing.Entities.Models
 {
-    public class Address
+    public class Address : Guid
     {
         public string Locality { get; set; }
 
@@ -22,9 +22,6 @@ namespace Billing.Entities.Models
                 && this.Country == other.Country;
         }
 
-        public override int GetHashCode()
-        {
-            return base.GetHashCode();
-        }
+        public override int GetHashCode() => base.GetHashCode();
     }
 }

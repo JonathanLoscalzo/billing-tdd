@@ -2,7 +2,7 @@ using Billing.Entities.Enums;
 
 namespace Billing.Entities.Models
 {
-    public class Bill
+    public class Bill : Guid
     {
         /// nrocliente - fullname
         public string Client { get; set; }
@@ -12,6 +12,8 @@ namespace Billing.Entities.Models
 
         /// 1 a 12
         public Months Month { get; set; }
+
+        public int Year { get; set; }
 
         public double NationalCallCost { get; set; }
 

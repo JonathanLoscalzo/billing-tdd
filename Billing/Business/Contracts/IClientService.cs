@@ -1,10 +1,16 @@
-using System;
+using Billing.Entities.Enums;
 using Billing.Entities.Models;
 
 namespace Billing.Business.Contracts
 {
     public interface IClientService
     {
-        void AddCall(Client from, Client to, int duration, DateTime start);
+        double GetNationalCost(Client client, Months month, int year);
+
+        double GetInternationalCost(Client client, Months month, int year);
+
+        double GetLocalCost(Client client, Months month, int year);
+
+        Client GetClient(int id);
     }
 }

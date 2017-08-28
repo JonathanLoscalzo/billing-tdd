@@ -1,11 +1,8 @@
 using System;
-using Calls = Billing.Entities.Enums.Calls;
-using Billing.Data.Helpers;
-using Billing.Data.CostStrategies;
 
 namespace Billing.Entities.Models
 {
-    public class Call
+    public class Call : Guid
     {
         public Client Transmitter { get; set; }
 
@@ -16,18 +13,5 @@ namespace Billing.Entities.Models
 
         /// Duración en minutos
         public int Duration { get; set; }
-
-        /// Cuando se setea el tipo de la llamada, se setea la estrategia.
-        public Calls CallType
-        {
-            get => Transmitter.GetCallType(Receiver);
-        }
-
-        public DestinationCall DestionationCall
-        {
-            get => DestinationCall.GetInstance(this.CallType);
-        }
-
-        public double Cost() => this.DestionationCall.HowMuchCost(this);
     }
 }

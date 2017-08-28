@@ -10,9 +10,9 @@ namespace Billing.Business.Services
     {
         public readonly ICostRepository costRepository;
 
-        public CostExternalService()
+        public CostExternalService(ICostRepository costRepository)
         {
-            this.costRepository = new CostRepository();
+            this.costRepository = costRepository;
         }
 
         public double GetCostFromNationalCall(Address address)

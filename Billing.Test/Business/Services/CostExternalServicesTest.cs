@@ -4,6 +4,9 @@ using Billing.Business.Contracts;
 
 using Xunit;
 using Billing.Data.Repositories;
+using Moq;
+using Billing.Data.Contracts;
+using System;
 
 namespace Billing.Test.Business
 {
@@ -15,9 +18,9 @@ namespace Billing.Test.Business
 
         public CostExternalServicesTest()
         {
-            this.costRepository = new CostRepository();
-            
-            this.costExternalService = new CostExternalService(this.costRepository);            
+            var mockRepo = new AddressRepository(); // Deberia mockear al ser UT, si fuera integración no.
+            this.costRepository = new CostRepository(mockRepo);
+            this.costExternalService = new CostExternalService(this.costRepository);
         }
 
         [Fact]

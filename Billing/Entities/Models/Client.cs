@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using System.Linq;
-using CallsEnum = Billing.Entities.Enums.Calls;
 
 namespace Billing.Entities.Models
 {
-    public class Client
+    public class Client : Guid
     {
         /// nro que lo identifica
         public int Profile { get; set; }
@@ -13,13 +11,11 @@ namespace Billing.Entities.Models
 
         public string LastName { get; set; }
 
-        public string FullName
-        {
-            get
-            {
-                return $"{this.Name} {this.FullName}";
-            }
-        }
+        public string FullName { get; set; }
+        // public string FullName
+        // {
+        //     get => string.Format("{0} {1}", this.Name, this.FullName);
+        // }
 
         /// Abono mensual
         public double MontlyPrice { get; set; }
@@ -28,19 +24,11 @@ namespace Billing.Entities.Models
 
         public Address Address { get; set; }
 
-        public IEnumerable<Call> Calls { get; set; }
+        public IList<Call> Calls { get; set; }
 
-        public double GetNationalCost() => this.GetCostFrom(CallsEnum.National);
-
-        public double GetInternationalCost() => this.GetCostFrom(CallsEnum.International);
-
-        public double GetLocalCost() => this.GetCostFrom(CallsEnum.Local);
-
-        private double GetCostFrom(CallsEnum callType)
+        public Client()
         {
-            return this.Calls
-            .Where(c => c.CallType == callType)
-            .Sum(v => v.Cost());
+            this.Calls = new List<Call>();
         }
     }
 }

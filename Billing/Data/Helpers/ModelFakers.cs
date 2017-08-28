@@ -1,6 +1,7 @@
 using Bogus;
 using Billing.Entities.Models;
 using BAddress = Billing.Entities.Models.Address;
+using System.Collections.Generic;
 
 namespace Billing.Data
 {
@@ -9,12 +10,12 @@ namespace Billing.Data
         public static Faker<Client> ClientFaker = new Faker<Client>("es")
         .Rules((f, c) =>
         {
-            c.Profile = f.UniqueIndex;
+            c.Profile = f.Random.Int(10000, 99999);
             c.Name = f.Person.FirstName;
             c.LastName = f.Person.LastName;
             c.MontlyPrice = double.Parse(f.Commerce.Price(decimals: 2));
             c.Address = ModelFakers.AddressFaker.Generate(1)[0];
-            //c.Calls = ModelFakers.CallFaker.Generate(10); 
+            c.Calls = new List<Call>();
         });
 
         public static Faker<BAddress> AddressFaker = new Faker<BAddress>("es")

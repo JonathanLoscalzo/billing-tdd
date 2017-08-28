@@ -16,7 +16,10 @@ namespace Billing.Test.Data.Repositories
         public ClientRepositoryTest()
         {
             var callRepository = new Mock<ICallRepository>();
-            this.clientRepository = new ClientRepository(callRepository.Object);
+            var addressRepository = new Mock<IAddressRepository>();
+            addressRepository.Setup(x => x.List()).Returns(ModelFakers.AddressFaker.Generate(100));
+            
+            this.clientRepository = new ClientRepository(callRepository.Object, addressRepository.Object);
         }
 
         [Fact]
