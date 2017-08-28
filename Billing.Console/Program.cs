@@ -6,7 +6,7 @@ namespace Billing.Console
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            Billing.Program.Main(args);
         }
     }
 }
