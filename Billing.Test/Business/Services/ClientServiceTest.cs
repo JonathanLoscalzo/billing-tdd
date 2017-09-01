@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using Billing.Business.Contracts;
 using Billing.Business.Services;
@@ -113,12 +114,12 @@ namespace Billing.Test.Business.Services
             this.clientRepository
                 .Setup(x => x.Create(It.IsAny<Client>()))
                 .Returns((Client c) => c);
-                
+
             //When
             this.addressRepo.Setup(x => x.Read(1)).Returns(address);
 
             var result = this.clientService.Create("name", "lastname", 1, 232, 123241);
-            
+
             //Then
             result.Address.Should().Be(address);
             result.Calls.Should().BeEmpty();
@@ -126,6 +127,22 @@ namespace Billing.Test.Business.Services
             result.LastName.Should().Be("lastname");
             result.PhoneNumber.Should().Be(123241);
             result.MontlyPrice.Should().Be(232);
+        }
+
+        [Fact]
+        public void WhenAddCallToExistentClientsSholdInvokeAddCallFromRepository()
+        {
+            //Given
+            var clients = ModelFakers.ClientFaker.Generate(2);
+            const int duration = 12;
+            this.clientRepository.Setup(c => c.Read(It.IsAny<int>())).Returns((int id) => clients.FirstOrDefault(x => x.Id == id));
+            this.clientRepository.Setup(x => x.AddCall(It.IsAny<Client>(), It.IsAny<Client>(), duration, It.IsAny<DateTime>())).Verifiable("Not execute");
+
+            //When
+            this.clientService.AddCallTo(clients[0].Id, clients[1].Id, duration);
+
+            //Then
+            this.clientRepository.VerifyAll();
         }
     }
 }

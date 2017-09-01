@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 
 using Billing.Business.Contracts;
@@ -52,6 +53,16 @@ namespace Billing.Business.Services
             };
 
             return this.clientRepository.Create(client);
+        }
+
+        public void AddCallTo(int fromId, int toId, int duration)
+        {
+            var from = this.clientRepository.Read(fromId);
+            var to = this.clientRepository.Read(toId);
+            if (from != null && to != null)
+            {
+                this.clientRepository.AddCall(from, to, duration, DateTime.Now);
+            }
         }
     }
 }

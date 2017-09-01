@@ -16,5 +16,8 @@ namespace Billing.Business.Contracts
         
         /// Crea un cliente, a partir de una dirección existente
         Client Create(string name, string lastname, int addressId, double montlyPrice = 100, int phoneNumber = 0);
+
+        /// Agrega una llamada a un emisor
+        void AddCallTo(int fromId, int toId, int duration);
     }
 }
