@@ -11,13 +11,16 @@ namespace Billing.Business.Services
     {
         private readonly ICallService callService;
         private readonly IClientRepository clientRepository;
+        private readonly IAddressRepository addressRepo;
 
         public ClientService(
             ICallService callService,
-            IClientRepository clientRepository)
+            IClientRepository clientRepository,
+            IAddressRepository addressRepository)
         {
             this.callService = callService;
             this.clientRepository = clientRepository;
+            this.addressRepo = addressRepository;
         }
 
         public double GetNationalCost(Client client, Months month, int year) => this.GetCostFrom(client, Calls.National, month, year);
@@ -36,5 +39,19 @@ namespace Billing.Business.Services
         }
 
         public Client GetClient(int id) => this.clientRepository.Read(id);
+
+        public Client Create(string name, string lastname, int addressId, double montlyPrice = 100, int phoneNumber = 0)
+        {
+            var client = new Client()
+            {
+                Name = name,
+                LastName = lastname,
+                MontlyPrice = montlyPrice,
+                PhoneNumber = phoneNumber,
+                Address = this.addressRepo.Read(addressId)
+            };
+
+            return this.clientRepository.Create(client);
+        }
     }
 }

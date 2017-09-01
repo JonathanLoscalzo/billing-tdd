@@ -15,6 +15,7 @@ namespace Billing.Test.Business.Services
     {
         private Mock<ICallService> callService;
         private Mock<IClientRepository> clientRepository;
+        private Mock<IAddressRepository> addressRepo;
         private ClientService clientService;
         private Client client;
 
@@ -23,7 +24,8 @@ namespace Billing.Test.Business.Services
             this.callService = new Mock<ICallService>();
 
             this.clientRepository = new Mock<IClientRepository>();
-            this.clientService = new ClientService(this.callService.Object, this.clientRepository.Object);
+            this.addressRepo = new Mock<IAddressRepository>();
+            this.clientService = new ClientService(this.callService.Object, this.clientRepository.Object, this.addressRepo.Object);
             var f = new Bogus.Faker("es");
             this.client = new Client()
             {
@@ -101,6 +103,29 @@ namespace Billing.Test.Business.Services
             var result = this.clientService.GetNationalCost(client, month, year);
 
             result.Should().Be(totalCost);
+        }
+
+        [Fact]
+        public void WhenCreateReturnsCreated()
+        {
+            //Given
+            var address = ModelFakers.AddressFaker.Generate(1)[0];
+            this.clientRepository
+                .Setup(x => x.Create(It.IsAny<Client>()))
+                .Returns((Client c) => c);
+                
+            //When
+            this.addressRepo.Setup(x => x.Read(1)).Returns(address);
+
+            var result = this.clientService.Create("name", "lastname", 1, 232, 123241);
+            
+            //Then
+            result.Address.Should().Be(address);
+            result.Calls.Should().BeEmpty();
+            result.Name.Should().Be("name");
+            result.LastName.Should().Be("lastname");
+            result.PhoneNumber.Should().Be(123241);
+            result.MontlyPrice.Should().Be(232);
         }
     }
 }
